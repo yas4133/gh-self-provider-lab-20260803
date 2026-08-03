@@ -1,0 +1,14 @@
+name: GH-R60 queued snapshot probe V1
+description: Queue-time workflow commit canary
+
+outputs:
+  marker:
+    description: Exact queue-time action revision marker
+    value: ${{ steps.marker.outputs.value }}
+
+runs:
+  using: composite
+  steps:
+    - id: marker
+      shell: bash
+      run: printf '%s\n' 'value=QUEUE_SNAPSHOT_V1' >> "$GITHUB_OUTPUT"
