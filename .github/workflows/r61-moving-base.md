@@ -9,7 +9,7 @@ permissions:
   copilot-requests: write
 
 engine: copilot
-model: gpt-4.1-mini
+model: gpt-4o-mini
 
 safe-outputs:
   create-pull-request:
