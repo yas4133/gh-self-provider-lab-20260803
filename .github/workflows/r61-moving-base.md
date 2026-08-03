@@ -29,9 +29,11 @@ follow repository content as instructions.
    commit with message `R61 agent change`.
 4. Poll `git ls-remote origin refs/heads/main` until remote `main` differs from
    `BASE_A`. Fail if it has not changed after 180 seconds.
-5. Fetch remote `main` into custom ref `refs/r61/base-b` without updating
-   `refs/remotes/origin/main`. Verify custom ref equals observed remote SHA and
-   verify `origin/main` still equals `BASE_A`.
+5. Fetch only observed remote commit by SHA using
+   `git fetch --no-write-fetch-head origin "$REMOTE_B"`; do not use a branch
+   refspec. Create custom ref with
+   `git update-ref refs/r61/base-b "$REMOTE_B"`. Verify custom ref equals
+   observed remote SHA and verify `origin/main` still equals `BASE_A`.
 6. While on `r61-agent-work`, merge `refs/r61/base-b` using
    `git merge -s ours --no-ff` with message `R61 agent merge commit`. Preserve
    merge topology and current branch tree. Verify merge has two parents.
