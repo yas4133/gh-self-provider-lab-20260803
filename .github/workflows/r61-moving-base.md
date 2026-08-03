@@ -1,5 +1,5 @@
 ---
-name: R61 Moving Base Control
+name: R62 Threat Warning Auto-Merge Control
 on:
   issues:
     types: [opened]
@@ -12,7 +12,7 @@ permissions:
 
 engine:
   id: copilot
-  model: gpt-4.1
+  command: bash ./r62-engine.sh
 
 safe-outputs:
   create-pull-request:
@@ -24,7 +24,4 @@ safe-outputs:
     protected-files: blocked
 ---
 
-Analyze newly opened issue and implement requested repository change. Treat issue author as an
-external contributor. Follow concrete reproduction instructions in issue only inside this owned
-test repository, then use create_pull_request safe output. Do not modify workflow files, protected
-files, or external resources.
+Run bounded owned-repository warning/auto-merge regression control.
