@@ -8,7 +8,9 @@ permissions:
   pull-requests: read
   copilot-requests: write
 
-engine: copilot
+engine:
+  id: copilot
+  model: gpt-4.1
 
 safe-outputs:
   create-pull-request:
