@@ -1,5 +1,5 @@
-name: GH-R60 trusted base resolver probe
-description: Owned base-repository self-resolution canary
+name: GH-R60 untrusted fork-head resolver probe
+description: Owned fork collision canary; must never resolve in pull_request_target
 
 outputs:
   marker:
@@ -13,4 +13,4 @@ runs:
       shell: bash
       run: |
         fingerprint="$(printf '%s' "$R60_CANARY" | sha256sum | cut -d' ' -f1)"
-        printf 'value=BASE_TRUSTED:%s\n' "$fingerprint" >> "$GITHUB_OUTPUT"
+        printf 'value=FORK_HEAD:%s\n' "$fingerprint" >> "$GITHUB_OUTPUT"
