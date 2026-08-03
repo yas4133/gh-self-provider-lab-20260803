@@ -1,0 +1,27 @@
+name: GH-R60 pull-request-target self resolver
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  resolve-base-self:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve action from workflow-own repository
+        id: probe
+        uses: $/actions/prt-probe
+        env:
+          R60_CANARY: ${{ secrets.R60_PRT_CANARY }}
+      - name: Persist resolution result
+        run: printf '%s\n' '${{ steps.probe.outputs.marker }}' > resolved-prt-marker.txt
+      - name: Upload resolution result
+        uses: actions/upload-artifact@v4
+        with:
+          name: gh-r60-prt-resolution-${{ github.run_id }}
+          path: resolved-prt-marker.txt
+          retention-days: 1
