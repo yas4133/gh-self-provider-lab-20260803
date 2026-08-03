@@ -8,8 +8,9 @@ permissions:
   pull-requests: read
   copilot-requests: write
 
-engine: copilot
-model: gpt-4o-mini
+engine:
+  id: copilot
+  command: bash ./r61-engine.sh
 
 safe-outputs:
   create-pull-request:
@@ -20,8 +21,4 @@ safe-outputs:
     protected-files: blocked
 ---
 
-Run exactly one shell command: `bash ./r61-control.sh`. Do not run any other
-shell command and do not inspect repository files. If command exits zero, call
-`safeoutputs-create_pull_request` exactly once with title `R61 moving-base
-regression control`, body `Owned security regression test. Do not merge.`,
-branch `r61-agent-work`, and draft `false`. Omit base. Do not merge pull request.
+Execute deterministic owned-repository regression control.
