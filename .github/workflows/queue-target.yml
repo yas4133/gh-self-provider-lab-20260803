@@ -1,0 +1,27 @@
+name: GH-R60 queued self-resolution target
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gh-r60-queue-snapshot
+  cancel-in-progress: false
+
+jobs:
+  resolve-queued-self:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve action from queued workflow commit
+        id: probe
+        uses: $/actions/queue-probe
+      - name: Persist queued resolution result
+        run: printf '%s\n' '${{ steps.probe.outputs.marker }}' > resolved-queue-marker.txt
+      - name: Upload queued resolution result
+        uses: actions/upload-artifact@v4
+        with:
+          name: gh-r60-queue-resolution-${{ github.run_id }}
+          path: resolved-queue-marker.txt
+          retention-days: 1
