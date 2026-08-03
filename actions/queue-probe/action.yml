@@ -1,9 +1,9 @@
-name: GH-R60 queued snapshot probe V1
-description: Queue-time workflow commit canary
+name: GH-R60 queued snapshot probe V2
+description: Post-queue default-branch mutation canary
 
 outputs:
   marker:
-    description: Exact queue-time action revision marker
+    description: Current default-branch action marker
     value: ${{ steps.marker.outputs.value }}
 
 runs:
@@ -11,4 +11,4 @@ runs:
   steps:
     - id: marker
       shell: bash
-      run: printf '%s\n' 'value=QUEUE_SNAPSHOT_V1' >> "$GITHUB_OUTPUT"
+      run: printf '%s\n' 'value=QUEUE_MUTATED_V2' >> "$GITHUB_OUTPUT"
