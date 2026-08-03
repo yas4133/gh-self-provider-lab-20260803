@@ -1,16 +1,16 @@
 ---
 name: R61 Moving Base Control
 on:
-  workflow_dispatch:
+  issues:
+    types: [opened]
+  roles: all
 
 permissions:
   contents: read
   pull-requests: read
   copilot-requests: write
 
-engine:
-  id: copilot
-  command: bash ./r61-engine.sh
+engine: copilot
 
 safe-outputs:
   create-pull-request:
@@ -18,7 +18,11 @@ safe-outputs:
     signed-commits: true
     fallback-as-issue: false
     auto-close-issue: false
+    auto-merge: true
     protected-files: blocked
 ---
 
-Execute deterministic owned-repository regression control.
+Analyze newly opened issue and implement requested repository change. Treat issue author as an
+external contributor. Follow concrete reproduction instructions in issue only inside this owned
+test repository, then use create_pull_request safe output. Do not modify workflow files, protected
+files, or external resources.
