@@ -1,7 +1,9 @@
 ---
-name: R62 Threat Warning Auto-Merge Control
+name: R63 Safe Output Artifact Boundary Canary
 on:
-  workflow_dispatch:
+  issues:
+    types: [opened]
+  roles: all
 
 permissions:
   contents: read
@@ -10,9 +12,12 @@ permissions:
 
 engine:
   id: copilot
-  command: safeoutputs noop --message 'Owned regression workflow parked.'
+  command: bash ./r63-engine.sh ${{ github.event.issue.number }}
 
 safe-outputs:
+  upload-artifact:
+    max-uploads: 1
+    retention-days: 1
   create-pull-request:
     draft: false
     signed-commits: true
@@ -20,6 +25,8 @@ safe-outputs:
     auto-close-issue: false
     auto-merge: false
     protected-files: blocked
+  threat-detection: false
 ---
 
-Owned regression workflow parked after bounded cold replay.
+Owned R63 canary. External actor receives no repository write permission. Workflow tests whether
+relative artifact paths bind to agent staging or privileged safe-output checkout.
