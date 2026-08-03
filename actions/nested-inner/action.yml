@@ -1,9 +1,9 @@
-name: GH-R60 nested inner provider V1
-description: Provider-pinned inner action canary
+name: GH-R60 nested inner provider V2
+description: Mutated provider-default inner action canary
 
 outputs:
   marker:
-    description: Exact nested provider revision marker
+    description: Exact nested provider default marker
     value: ${{ steps.marker.outputs.value }}
 
 runs:
@@ -11,4 +11,4 @@ runs:
   steps:
     - id: marker
       shell: bash
-      run: printf '%s\n' 'value=PROVIDER_NESTED_INNER_V1' >> "$GITHUB_OUTPUT"
+      run: printf '%s\n' 'value=PROVIDER_NESTED_INNER_V2' >> "$GITHUB_OUTPUT"
