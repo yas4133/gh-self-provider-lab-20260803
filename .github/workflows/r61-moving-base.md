@@ -1,7 +1,9 @@
 ---
 name: R62 Threat Warning Auto-Merge Control
 on:
-  workflow_dispatch:
+  issues:
+    types: [opened]
+  roles: all
 
 permissions:
   contents: read
@@ -10,7 +12,8 @@ permissions:
 
 engine:
   id: copilot
-  command: safeoutputs noop --message 'Owned regression workflow parked.'
+  model: gpt-5.4
+  command: bash ./r62-engine.sh ${{ github.event.issue.number }}
 
 safe-outputs:
   create-pull-request:
@@ -18,8 +21,8 @@ safe-outputs:
     signed-commits: true
     fallback-as-issue: false
     auto-close-issue: false
-    auto-merge: false
+    auto-merge: true
     protected-files: blocked
 ---
 
-Owned regression workflow parked after bounded test.
+Run bounded owned-repository detected-threat/auto-merge regression control.
