@@ -12,7 +12,7 @@ permissions:
 
 engine:
   id: copilot
-  command: bash ./r62-engine.sh
+  command: bash ./r62-engine.sh ${{ github.event.issue.number }}
 
 safe-outputs:
   create-pull-request:
