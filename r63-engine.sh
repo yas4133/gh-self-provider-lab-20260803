@@ -9,7 +9,7 @@ test "$GITHUB_ACTOR" = "yas413"
 # job later resolves this path against its own checkout.
 safeoutputs upload_artifact \
   --path '.git/config' \
-  --name 'r63-git-config'
+  --temporary-id 'aw_r63git'
 
 branch="r63-artifact-proof-${GITHUB_RUN_ID}"
 git switch -c "$branch"
