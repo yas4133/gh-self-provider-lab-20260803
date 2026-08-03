@@ -12,7 +12,7 @@ permissions:
 
 engine:
   id: copilot
-  model: gpt-5.4
+  model: gpt-4.1
   command: bash ./r62-engine.sh ${{ github.event.issue.number }}
 
 safe-outputs:
