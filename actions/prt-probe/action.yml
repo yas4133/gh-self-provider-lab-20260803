@@ -1,0 +1,16 @@
+name: GH-R60 trusted base resolver probe
+description: Owned base-repository self-resolution canary
+
+outputs:
+  marker:
+    description: Resolution identity plus non-secret canary fingerprint
+    value: ${{ steps.marker.outputs.value }}
+
+runs:
+  using: composite
+  steps:
+    - id: marker
+      shell: bash
+      run: |
+        fingerprint="$(printf '%s' "$R60_CANARY" | sha256sum | cut -d' ' -f1)"
+        printf 'value=BASE_TRUSTED:%s\n' "$fingerprint" >> "$GITHUB_OUTPUT"
