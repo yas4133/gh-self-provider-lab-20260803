@@ -1,0 +1,14 @@
+name: GH-R60 provider probe
+description: Owned self-repository resolution canary
+
+outputs:
+  marker:
+    description: Exact provider revision marker
+    value: ${{ steps.marker.outputs.value }}
+
+runs:
+  using: composite
+  steps:
+    - id: marker
+      shell: bash
+      run: printf '%s\n' 'value=PROVIDER_PINNED_V1' >> "$GITHUB_OUTPUT"
